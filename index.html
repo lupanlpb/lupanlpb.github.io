@@ -152,6 +152,156 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-利用Hexo搭建个人博客-Mac" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/26/利用Hexo搭建个人博客-Mac/">利用Hexo搭建个人博客(Mac)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/26/利用Hexo搭建个人博客-Mac/" class="archive-article-date">
+  	<time datetime="2019-05-26T11:52:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1. 安装git"></a>1. 安装git</h2><h2 id="2-安装node-js"><a href="#2-安装node-js" class="headerlink" title="2. 安装node.js"></a>2. 安装node.js</h2><h2 id="3-安装cnpm"><a href="#3-安装cnpm" class="headerlink" title="3. 安装cnpm"></a>3. 安装cnpm</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su # 切换到root用户</span><br><span class="line">npm -v  # 查看node.js是否安装成功</span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org #安装镜像</span><br><span class="line">cnpm -v # 查看安装cnpm是否成功</span><br></pre></td></tr></table></figure>
+<h2 id="4-安装hexo"><a href="#4-安装hexo" class="headerlink" title="4. 安装hexo"></a>4. 安装hexo</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli # 安装hexo</span><br><span class="line">hexo -v # 查看是否安装成功</span><br></pre></td></tr></table></figure>
+<h2 id="5-创建博客"><a href="#5-创建博客" class="headerlink" title="5. 创建博客"></a>5. 创建博客</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog # 博客目录</span><br><span class="line">cd blog # 切换到blog目录</span><br><span class="line">sudo hexo init # 初始化博客</span><br><span class="line">hexo s #启动博客，在浏览器输入localhost:4000</span><br><span class="line">hexo n "My first blog" # 新建一篇博客文章</span><br><span class="line">cd source/_posts/ # 切换目录</span><br><span class="line">vim My-first-blog.md # 编辑博客</span><br><span class="line">cd ../../ # 切换到blog目录</span><br><span class="line">hexo clean # 清理</span><br><span class="line">hexo g # 生成博客</span><br><span class="line">hexo s # 启动</span><br><span class="line"><span class="meta">#</span><span class="bash"> 到目前为止，博客已经搭建完毕</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下面将博客部署到github</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-部署博客到github"><a href="#6-部署博客到github" class="headerlink" title="6. 部署博客到github"></a>6. 部署博客到github</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 登录github</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 新建仓库</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 在repository name输入你的github昵称 + github.io, 如“lupanlpb.github.io”</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 4. 在description输入介绍信息</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 5. 点击create</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 6. 安装git部署插件</span></span><br><span class="line">cnpm install --save hexo-deployer-git # 安装过程会报出warning，可不予理会</span><br><span class="line"><span class="meta">#</span><span class="bash"> 7. 修改配置文件</span></span><br><span class="line">vim _config.yml # </span><br><span class="line"><span class="meta">#</span><span class="bash"> 8. 在 Deployment处修改<span class="built_in">type</span>、reporepo和branch如下</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/lupanlpb/lupanlpb.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line"><span class="meta">#</span><span class="bash"> 保存退出</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 9. 部署到远端</span></span><br><span class="line">hexo d # 部署，并根据提示输入github账号和密码</span><br></pre></td></tr></table></figure>
+<p>现在可以访问<a href="https://lupanlpb.github.io/" target="_blank" rel="noopener">https://lupanlpb.github.io/</a>了，这样博客就部署到github了！</p>
+<h2 id="7-更换主题"><a href="#7-更换主题" class="headerlink" title="7. 更换主题"></a>7. 更换主题</h2><ul>
+<li>推荐使用<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">yilia</a><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia # 下载主题，在blog/themes目录下</span><br><span class="line">vim _config.yml # 修改配置文件将theme: landscape改为theme: yilia,保存退出</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">hexo d # 部署到远端</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">个人博客 Hexo Mac</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/26/利用Hexo搭建个人博客-Mac/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-My-First-Blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/26/My-First-Blog/">My First Blog</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/26/My-First-Blog/" class="archive-article-date">
+  	<time datetime="2019-05-26T09:26:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="This-is-my-first-blog-powered-by-Hexo"><a href="#This-is-my-first-blog-powered-by-Hexo" class="headerlink" title="This is my first blog powered by Hexo"></a>This is my first blog powered by Hexo</h2><ul>
+<li><p>exciting</p>
+</li>
+<li><p>amazing</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/26/My-First-Blog/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -314,6 +464,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">个人博客 Hexo Mac</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

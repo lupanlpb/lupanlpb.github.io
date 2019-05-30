@@ -122,36 +122,10 @@
 <li><p>安装openssh-server</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server # 安装openssh-server</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>远程访问</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig # 查看远程linux系统的IP地址</span><br></pre></td></tr></table></figure>
-<p> 在本地终端输入如下代码：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@IP地址 进行访问</span><br></pre></td></tr></table></figure>
-<p> 请求访问的时候会要求输入远程用户密码</p>
-</li>
-</ol>
-<h2 id="vnc：在同一局域网下远程共享桌面"><a href="#vnc：在同一局域网下远程共享桌面" class="headerlink" title="vnc：在同一局域网下远程共享桌面"></a>vnc：在同一局域网下远程共享桌面</h2><ol>
-<li><p>linux安装x11vnc</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc # 安装vnc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置密码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd # 设置密码</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>终端执行以下代码，进行远程共享桌面</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -usepw # 启动远程共享桌面</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="samba：在同一局域网下共享文件"><a href="#samba：在同一局域网下共享文件" class="headerlink" title="samba：在同一局域网下共享文件"></a>samba：在同一局域网下共享文件</h2><ol>
-<li>在远程文件目录下新建文件夹，命名为Share,然后右键选中选择”Local Network Share”</li>
-<li>在跳出的页面中勾选Share this folder,并勾选”Allow others to creat and delete files in this folder”</li>
-<li><p>在终端输入以下命令,设置密码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo smbpasswd -a username # 设置密码</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Mac中按下command + 跳出如下选框<br><img src="/远程工具的使用-持续更新-md/smb.png" alt="smb"><br> 在框内输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smb://远程linux的IP地址</span><br></pre></td></tr></table></figure>
-<p> 然后输入用户名及密码，进行访问。</p>
-</li>
-</ol>
-
+<li><p>远程访问</p></li></ol>
+          <div class="read-more">
+            <a href="/2019/05/30/远程工具的使用-持续更新-md/" class="read-more-link">阅读更多</a>
+          </div>
         </div></article>
       <article class="post">
     <header class="post-header">

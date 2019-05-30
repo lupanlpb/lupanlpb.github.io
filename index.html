@@ -109,7 +109,7 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/30/远程工具的使用-持续更新/">远程工具的使用(持续更新)</a>
+      <h1 class="post-title"><a class="post-link" href="/2019/05/30/远程工具的使用-持续更新-md/">远程工具的使用-持续更新.md</a>
         </h1>
 
       <div class="post-meta">
@@ -123,29 +123,39 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server # 安装openssh-server</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>远程访问</p>
-          <div class="read-more">
-            <a href="/2019/05/30/远程工具的使用-持续更新/" class="read-more-link">阅读更多</a>
-          </div>
-        </li></ol></div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/30/利用Hexo搭建个人博客-Mac-持续更新/">利用Hexo搭建个人博客-Mac(持续更新)</a>
-        </h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig # 查看远程linux系统的IP地址</span><br></pre></td></tr></table></figure>
+<p> 在本地终端输入如下代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@IP地址 进行访问</span><br></pre></td></tr></table></figure>
+<p> 请求访问的时候会要求输入远程用户密码</p>
+</li>
+</ol>
+<h2 id="vnc：在同一局域网下远程共享桌面"><a href="#vnc：在同一局域网下远程共享桌面" class="headerlink" title="vnc：在同一局域网下远程共享桌面"></a>vnc：在同一局域网下远程共享桌面</h2><ol>
+<li><p>linux安装x11vnc</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc # 安装vnc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd # 设置密码</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>终端执行以下代码，进行远程共享桌面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -usepw # 启动远程共享桌面</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="samba：在同一局域网下共享文件"><a href="#samba：在同一局域网下共享文件" class="headerlink" title="samba：在同一局域网下共享文件"></a>samba：在同一局域网下共享文件</h2><ol>
+<li>在远程文件目录下新建文件夹，命名为Share,然后右键选中选择”Local Network Share”</li>
+<li>在跳出的页面中勾选Share this folder,并勾选”Allow others to creat and delete files in this folder”</li>
+<li><p>在终端输入以下命令,设置密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo smbpasswd -a username # 设置密码</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Mac中按下command + 跳出如下选框<br><img src="/远程工具的使用-持续更新-md/smb.png" alt="smb"><br> 在框内输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smb://远程linux的IP地址</span><br></pre></td></tr></table></figure>
+<p> 然后输入用户名及密码，进行访问。</p>
+</li>
+</ol>
 
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-30
-        </span></div>
-    </header>
-
-    <div class="post-content"><h2 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1. 安装git"></a>1. 安装git</h2><h2 id="2-安装node-js"><a href="#2-安装node-js" class="headerlink" title="2. 安装node.js"></a>2. 安装node.js</h2><h2 id="3-安装cnpm"><a href="#3-安装cnpm" class="headerlink" title="3. 安装cnpm"></a>3. 安装cnpm</h2>
-          <div class="read-more">
-            <a href="/2019/05/30/利用Hexo搭建个人博客-Mac-持续更新/" class="read-more-link">阅读更多</a>
-          </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/30/git学习笔记-持续更新/">git学习笔记(持续更新)</a>
+      <h1 class="post-title"><a class="post-link" href="/2019/05/30/git学习笔记-持续更新-md/">git学习笔记-持续更新.md</a>
         </h1>
 
       <div class="post-meta">
@@ -161,6 +171,22 @@
 </ol>
 <h2 id="Git提交文件常用命令"><a href="#Git提交文件常用命令" class="headerlink" title="Git提交文件常用命令"></a>Git提交文件常用命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git config --list # 查看配置列表</span><br><span class="line">git config --global user.email 'lupanlpb@163.com' # 配置邮箱</span><br><span class="line">git config --global user.name 'lupanlpb' # 配置用户名</span><br><span class="line">git clone https://github.com/lupanlpb/GitLearn.git # 克隆远程仓库到本地</span><br><span class="line">git status # 查看状态</span><br><span class="line">git add test.dat # 将文件从工作区提交到暂存区</span><br><span class="line">git commit -m "提交的描述" # 将文件从暂存区提交到Git仓库</span><br><span class="line">git push # 提交到远程仓库</span><br></pre></td></tr></table></figure>
 
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2019/05/30/利用Hexo搭建个人博客-Mac-持续更新-md/">利用Hexo搭建个人博客-Mac-持续更新.md</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-05-30
+        </span></div>
+    </header>
+
+    <div class="post-content"><h2 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1. 安装git"></a>1. 安装git</h2><h2 id="2-安装node-js"><a href="#2-安装node-js" class="headerlink" title="2. 安装node.js"></a>2. 安装node.js</h2><h2 id="3-安装cnpm"><a href="#3-安装cnpm" class="headerlink" title="3. 安装cnpm"></a>3. 安装cnpm</h2>
+          <div class="read-more">
+            <a href="/2019/05/30/利用Hexo搭建个人博客-Mac-持续更新-md/" class="read-more-link">阅读更多</a>
+          </div>
         </div></article>
       <article class="post">
     <header class="post-header">

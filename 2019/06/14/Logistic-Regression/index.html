@@ -123,7 +123,7 @@
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hypothesis"><span class="toc-text">Hypothesis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cost-Function"><span class="toc-text">Cost Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient"><span class="toc-text">Gradient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix：the-deviation-of-J-theta"><span class="toc-text">Appendix：the deviation of $J (\theta)$</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p>在分类问题中，要预测的 $y$ 值离散的，逻辑回归是目前最流行使用最广泛的一种用于分类的学习算法。</p>
+  </div><div class="post-content"><p><img src="/2019/06/14/Logistic-Regression/sigmoid.png" style="zoom:50%"><br>在分类问题中，要预测的 $y$ 值离散的，逻辑回归是目前最流行使用最广泛的一种用于分类的学习算法。</p>
 <h2 id="Hypothesis"><a href="#Hypothesis" class="headerlink" title="Hypothesis"></a>Hypothesis</h2><ul>
 <li>分类：$y = 0\ or\ 1$</li>
 <li>在逻辑回归中，$0\ &lt;\ h_\theta\ &lt;1 $， $h_\theta = g(\theta^TX)$，其中$X$ 表示特征向量，$g(z)=\frac{1}{1+e^{-z}}$ 是一个常用的S型$(Sigmoid Function)$ 逻辑函数。</li>
@@ -142,7 +142,7 @@
 <h2 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h2><ul>
 <li><p>对于线性回归，可以使用模型误差的平方和作为代价函数$J(\theta)$，在此基础上最小化$J(\theta)$ 以求得$\theta $，此时的代价函数是一个凸函数，没有局部最小值，可以很容易的找到全局最小值。但对于逻辑回归模型来说，若按照这样的思路来定义代价函数，此时的代价函数是非凸函数，有就很多的局部极小值，不利于梯度下降法的求解。</p>
 </li>
-<li><p>于是需要根据逻辑回归的特征重新定义代价函数：$J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$。其中<br>$$\operatorname{cost}\left(h_{\theta}(x), y\right)=\left{\begin{aligned}-\log \left(h_{\theta}(x)\right) &amp; \text { if } y=1 \-\log \left(1-h_{\theta}(x)\right) &amp; \text { if } y=0 \end{aligned}\right.$$</p>
+<li><p>于是需要根据逻辑回归的特征重新定义代价函数：$J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$。其中<br>$$\operatorname{cost}\left(h_{\theta}(x), y\right)=\left{\begin{aligned}-\log \left(h_{\theta}(x)\right) &amp; \text { if } y=1 \\-\log \left(1-h_{\theta}(x)\right) &amp; \text { if } y=0 \end{aligned}\right.$$</p>
 </li>
 <li><p>$h_\theta(x)$ 与$\operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$ 的关系如下图所示：</p>
 <img src="/2019/06/14/Logistic-Regression/cost.png" title="Cost">

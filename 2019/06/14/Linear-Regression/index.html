@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="一只USTC菜鸟"><meta name="keywords" content="Geophysics"><link rel="alternate" href="/default" title="Zhuanghua"><link rel="shortcut icon" type="image/x-icon" href="/avatar2.jpg?v=2.11.0">
-<link rel="canonical" href="http://yoursite.com/">
+<meta name="description" content="Linear Regression"><meta name="keywords" content="Geophysics"><link rel="alternate" href="/default" title="Zhuanghua"><link rel="shortcut icon" type="image/x-icon" href="/avatar2.jpg?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/2019/06/14/Linear-Regression/">
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css"><script type="text/x-mathjax-config">
     MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
@@ -40,7 +40,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":true};
 </script>
 
-    <title>Zhuanghua</title>
+    <title>Linear Regression - Zhuanghua</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -107,9 +107,9 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><section id="posts" class="posts"><article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/06/14/Linear-Regression/">Linear Regression</a>
+      <h1 class="post-title">Linear Regression
         </h1>
 
       <div class="post-meta">
@@ -118,7 +118,12 @@
         </span></div>
     </header>
 
-    <div class="post-content"><h2 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h2><p>在分类问题中，要预测的 $y$ 值离散的，逻辑回归是目前最流行使用最广泛的一种用于分类的学习算法。</p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic-Regression"><span class="toc-text">Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hypothesis"><span class="toc-text">Hypothesis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cost-Function"><span class="toc-text">Cost Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient"><span class="toc-text">Gradient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix：the-deviation-of-J-theta"><span class="toc-text">Appendix：the deviation of $J (\theta)$</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h2><p>在分类问题中，要预测的 $y$ 值离散的，逻辑回归是目前最流行使用最广泛的一种用于分类的学习算法。</p>
 <h2 id="Hypothesis"><a href="#Hypothesis" class="headerlink" title="Hypothesis"></a>Hypothesis</h2><ul>
 <li><p>分类：$y = 0\ or\ 1$</p>
 </li>
@@ -173,94 +178,36 @@
 <p>$$<br>\begin{array}{l}{=-\frac{1}{m} \sum_{i=1}^{m}\left[-y^{(i)} \frac{-x_{j}^{(i)} e^{-\theta^{T} x^{(i)}}}{1+e^{-\theta^{T} x^{(i)}}}-\left(1-y^{(i)}\right) \frac{x_{j}^{(i)} e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}}\right]} \ {=-\frac{1}{m} \sum_{i=1}^{m} y^{(i)} \frac{x_{j}^{(i)}}{1+e^{\theta^{T} x^{(i)}}}-\left(1-y^{(i)}\right) \frac{x_{j}^{(i)} e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}} ]} \ {=-\frac{1}{m} \sum_{i=1}^{m} \frac{y^{(i)} x_{j}^{(i)}-x_{j}^{(i)} e^{\theta^{T} x^{(i)}}+y^{(i)} x_{j}^{(i)} e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}}} \ {=-\frac{1}{m} \sum_{i=1}^{m} \frac{y^{(i)}\left(1+e^{\theta^{T} x^{(i)}}\right)-e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}} x_{j}^{(i)}} \ {=-\frac{1}{m} \sum_{i=1}^{m}\left(y^{(i)}-\frac{e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}}\right) x_{j}^{(i)}} \ {=-\frac{1}{m} \sum_{i=1}^{m}\left(y^{(i)}-\frac{1}{1+e^{-\theta^{T} x^{(i)}} )} x_{j}^{(i)}\right.} \ {=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)}-h_{\theta}\left(x^{(i)}\right)\right] x_{j}^{(i)}} \ {=\frac{1}{m} \sum_{i=1}^{m}\left[h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right] x_{j}^{(i)}}<br>\end{array}<br>$$</p>
 <p>即</p>
 
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/31/远程工具的使用/">远程工具的使用</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-31
-        </span></div>
-    </header>
-
-    <div class="post-content"><h2 id="ssh：在同一局域网下，远程连接"><a href="#ssh：在同一局域网下，远程连接" class="headerlink" title="ssh：在同一局域网下，远程连接"></a>ssh：在同一局域网下，远程连接</h2><ol>
-<li><p>安装openssh-server</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server # 安装openssh-server</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>远程访问</p></li></ol>
-          <div class="read-more">
-            <a href="/2019/05/31/远程工具的使用/" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/31/git学习笔记/">git学习笔记</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-31
-        </span></div>
-    </header>
-
-    <div class="post-content"><h2 id="Git的三个工作区域"><a href="#Git的三个工作区域" class="headerlink" title="Git的三个工作区域"></a>Git的三个工作区域</h2><ol>
-<li>工作区</li>
-<li>暂存区</li>
-<li>Git仓库</li></ol>
-          <div class="read-more">
-            <a href="/2019/05/31/git学习笔记/" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/31/Mac下利用Hexo搭建个人博客/">Mac下利用Hexo搭建个人博客</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-31
-        </span></div>
-    </header>
-
-    <div class="post-content"><h2 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1. 安装git"></a>1. 安装git</h2><h2 id="2-安装node-js"><a href="#2-安装node-js" class="headerlink" title="2. 安装node.js"></a>2. 安装node.js</h2><h2 id="3-安装cnpm"><a href="#3-安装cnpm" class="headerlink" title="3. 安装cnpm"></a>3. 安装cnpm</h2>
-          <div class="read-more">
-            <a href="/2019/05/31/Mac下利用Hexo搭建个人博客/" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/26/hello-world/">Hello World</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-26
-        </span></div>
-    </header>
-
-    <div class="post-content"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3>
-          <div class="read-more">
-            <a href="/2019/05/26/hello-world/" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/05/26/My-First-Blog/">My First Blog</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-26
-        </span></div>
-    </header>
-
-    <div class="post-content"><h2 id="This-is-my-first-blog-powered-by-Hexo"><a href="#This-is-my-first-blog-powered-by-Hexo" class="headerlink" title="This is my first blog powered by Hexo"></a>This is my first blog powered by Hexo</h2><p>That’s Great!</p>
-
-        </div></article>
-      <nav class="pagination"></nav></section></div></div>
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">Zhuanghua</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2019/06/14/Linear-Regression/">http://yoursite.com/2019/06/14/Linear-Regression/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/机器学习/">机器学习</a>
+            <a href="/tags/分类/">分类</a>
+            <a href="/tags/逻辑回归/">逻辑回归</a>
+            <a href="/tags/Sigmoid-Function/">Sigmoid Function</a>
+            <a href="/tags/梯度下降法/">梯度下降法</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/05/31/远程工具的使用/">
+        <span class="next-text nav-default">远程工具的使用</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:lupanlpb@163.com" class="iconfont icon-email" title="email"></a>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Logistic Regression"><meta name="keywords" content="Geophysics"><link rel="alternate" href="/default" title="Zhuanghua"><link rel="shortcut icon" type="image/x-icon" href="/avatar2.jpg?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/2019/06/14/Logistic-Regression/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Logistic Regression - Zhuanghua</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Zhuanghua</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Zhuanghua</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Logistic Regression
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-06-14
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hypothesis"><span class="toc-text">Hypothesis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cost-Function"><span class="toc-text">Cost Function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradient"><span class="toc-text">Gradient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix：the-deviation-of-J-theta"><span class="toc-text">Appendix：the deviation of $J (\theta)$</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>在分类问题中，要预测的 $y$ 值离散的，逻辑回归是目前最流行使用最广泛的一种用于分类的学习算法。</p>
+<h2 id="Hypothesis"><a href="#Hypothesis" class="headerlink" title="Hypothesis"></a>Hypothesis</h2><ul>
+<li>分类：$y = 0\ or\ 1$</li>
+</ul>
+<ul>
+<li>在逻辑回归中，$0\ &lt;\ h_\theta\ &lt;1 $， $h_\theta = g(\theta^TX)$，其中$X$ 表示特征向量，$g(z)=\frac{1}{1+e^{-z}}$ 是一个常用的S型$(Sigmoid Function)$ 逻辑函数。</li>
+</ul>
+<a id="more"></a>&gt;<br><br>- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># sigmoid function</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoidFunc</span><span class="params">(z)</span>:</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">1.0</span> / (<span class="number">1.0</span> + np.exp(-z))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># set axes</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">originset</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    ax = plt.gca()</span><br><span class="line"></span><br><span class="line">    ax.spines[<span class="string">'right'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line"></span><br><span class="line">    ax.spines[<span class="string">'top'</span>].set_color(<span class="string">'none'</span>)</span><br><span class="line"></span><br><span class="line">    ax.xaxis.set_ticks_position(<span class="string">'bottom'</span>)</span><br><span class="line"></span><br><span class="line">    ax.yaxis.set_ticks_position(<span class="string">'left'</span>)</span><br><span class="line"></span><br><span class="line">    ax.spines[<span class="string">'bottom'</span>].set_position((<span class="string">'data'</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    ax.spines[<span class="string">'left'</span>].set_position((<span class="string">'data'</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">originset()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">z = np.arange(<span class="number">-10</span>, <span class="number">10</span>, <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(x, sigmoidFunc(x), <span class="string">'b'</span>)</span><br><span class="line"></span><br><span class="line">plt.yticks(np.arange(<span class="number">0.2</span>, <span class="number">1.2</span>, <span class="number">0.2</span>))</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">'$Sigmoid\ Function$'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="/Users/lupan/Library/Application Support/typora-user-images/image-20190614094722077.png" style="zoom:50%"></p>
+<ul>
+<li><p>对$h_\theta$ 的理解：</p>
+</li>
+<li><ol>
+<li><p>在逻辑回归中，当$h_\theta(x) &gt;= 0.5$ 时，$y = 1$；当$h_\theta(x) &lt; 0.5$ 时，$y = 0$。</p>
+</li>
+<li><p>对于一个输入，根据选定的参数计算输出变量为1的可能性，即$h_{\theta}(x)=P(y=1 | x ; \theta)$。例如，如果对于给定的$x$，通过已经确定的参数计算得出$h_\theta(x) = 0.7$，则表示有$70\%$ 的几率$y$ 为正向类，相应地$y$ 为负向类的几率为$1-0.7=0.3$。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h2><ul>
+<li>对于线性回归，可以使用模型误差的平方和作为代价函数$J(\theta)$，在此基础上最小化$J(\theta)$ 以求得$\theta $，此时的代价函数是一个凸函数，没有局部最小值，可以很容易的找到全局最小值。但对于逻辑回归模型来说，若按照这样的思路来定义代价函数，此时的代价函数是非凸函数，有就很多的局部极小值，不利于梯度下降法的求解。</li>
+</ul>
+<ul>
+<li><p>于是需要根据逻辑回归的特征重新定义代价函数：$J(\theta)=\frac{1}{m} \sum_{i=1}^{m} \operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$。其中</p>
+<p>$$</p>
+<p>\operatorname{cost}\left(h_{\theta}(x), y\right)=\left{\begin{aligned}-\log \left(h_{\theta}(x)\right) &amp; \text { if } y=1 \-\log \left(1-h_{\theta}(x)\right) &amp; \text { if } y=0 \end{aligned}\right.</p>
+<p>$$</p>
+</li>
+</ul>
+<ul>
+<li>$h_\theta(x)$ 与$\operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$ 的关系如下图所示：<img src="/Users/lupan/Library/Application Support/typora-user-images/image-20190614104356505.png" style="zoom:50%"></li>
+</ul>
+<ul>
+<li>从上图可以看出$\operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$ 的特点：当$y = 1$时，$h_\theta$ 越接近$1$，$\operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$ 越小，反之越大；当$y = 0$时，$h_\theta$ 越接近 $0$，$\operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$ 越小，反之越大。</li>
+</ul>
+<ul>
+<li>根据这一特点，构建$\operatorname{cost}\left(h_{\theta}\left(x^{(i)}\right), y^{(i)}\right)$ 如下：$\operatorname{cost}\left(h_{\theta}(x), y\right)=-y \times \log \left(h_{\theta}(x)\right)-(1-y) \times \log \left(1-h_{\theta}(x)\right)$。</li>
+</ul>
+<ul>
+<li>据此可得代价函数：$J(\theta)=\frac{1}{m} \sum_{i=1}^{m}\left[-y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)-\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]$。</li>
+</ul>
+<ul>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># cost function</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">costfn</span><span class="params">(theta, X, y, mylambda = <span class="number">0</span>)</span>:</span></span><br><span class="line"></span><br><span class="line">    term1 = np.dot(-y.T, np.log(h(theta, X)))</span><br><span class="line"></span><br><span class="line">    term2 = np.dot((<span class="number">1</span> - y).T, np.log(<span class="number">1</span> - h(theta, X)))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># regularized term</span></span><br><span class="line"></span><br><span class="line">    regn = (mylambda/ (<span class="number">2.0</span> * m)) * np.sum(np.power(theta[<span class="number">1</span>:], <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> float(<span class="number">1.0</span>/m * np.sum(term1 - term2) + regn)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Gradient"><a href="#Gradient" class="headerlink" title="Gradient"></a>Gradient</h2><p>在得到代价函数之后，我们便可以利用梯度下降法来求解使代价函数最小的参数$\theta$。</p>
+<ul>
+<li><p>求解算法：</p>
+<p>$$</p>
+<p>\begin{array}{c}{\text { Repeat }\left{\theta_{j} :=\theta_{j}-\alpha \frac{\partial}{\partial \theta_{j}} J(\theta)\right.} \ {\text { (simultaneously update all } \theta_{j} )} \ {\mathrm{~ } ~}}\end{array}</p>
+<p>$$</p>
+</li>
+</ul>
+<ul>
+<li><p>求导后带入可得：</p>
+<p>$$</p>
+<p>\begin{array}{l}{\text { Repeat }\left{\theta_{j} :=\theta_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}\left(h_{\theta}\left(\mathrm{x}^{(i)}\right)-\mathrm{y}^{(i)} \quad\right) \mathrm{x}<em>{j}^{(i)}\right.} \ {\text { (simultaneously update all } \theta</em>{j} )} \ {\mathrm{~ } ~}}\end{array}</p>
+<p>$$</p>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>主要公式：</p>
+<ul>
+<li><p>Sigmoid function: $g(z)=\frac{1}{1+e^{-z}}$</p>
+</li>
+<li><p>Hypothesis: $h_\theta = g(\theta^TX) = g(z)=\frac{1}{1+e^{-\theta^TX}}$</p>
+</li>
+<li><p>$\operatorname{cost}:$ $\operatorname{cost}\left(h_{\theta}(x), y\right)=-y \times \log \left(h_{\theta}(x)\right)-(1-y) \times \log \left(1-h_{\theta}(x)\right)$</p>
+</li>
+<li><p>Cost function: $J(\theta)=\frac{1}{m} \sum_{i=1}^{m}\left[-y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)-\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]$</p>
+</li>
+<li><p>Gradient: $\frac{\partial J(\theta)}{\partial \theta_{j}}=\frac{1}{m} \sum_{i=1}^{m}\left[h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right] x_{j}^{(i)}$</p>
+</li>
+</ul>
+<h2 id="Appendix：the-deviation-of-J-theta"><a href="#Appendix：the-deviation-of-J-theta" class="headerlink" title="Appendix：the deviation of $J (\theta)$"></a>Appendix：the deviation of $J (\theta)$</h2><p>$$</p>
+<p>J(\theta)=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)\right]</p>
+<p>$$</p>
+<p>由于$h_{\theta}\left(x^{(i)}\right)=\frac{1}{1+e^{-\theta^{T} x^{(i)}}}$，则：</p>
+<p>$$</p>
+<p>\begin{array}{l}{y^{(i)} \log \left(h_{\theta}\left(x^{(i)}\right)\right)+\left(1-y^{(i)}\right) \log \left(1-h_{\theta}\left(x^{(i)}\right)\right)} \ {=y^{(i)} \log \left(\frac{1}{1+e^{-\theta^{T} x^{(i)}}}\right)+\left(1-y^{(i)}\right) \log \left(1-\frac{1}{1+e^{-\theta^{T} x^{(i)}}}\right)} \ {=-y^{(i)} \log \left(1+e^{-\theta^{T} x^{(i)}}\right)-\left(1-y^{(i)}\right) \log \left(1+e^{\theta^{T} x^{(i)}}\right)}\end{array}</p>
+<p>$$</p>
+<p>所以，</p>
+<p>$$</p>
+<p>\frac{\partial}{\partial \theta_{j}} J(\theta)=\frac{\partial}{\partial \theta_{j}}\left[-\frac{1}{m} \sum_{i=1}^{m}\left[-y^{(i)} \log \left(1+e^{-\theta^{T} x^{(i)}}\right)-\left(1-y^{(i)}\right) \log \left(1+e^{\theta^{T} x^{(i)}}\right)\right]\right]</p>
+<p>$$</p>
+<p>$$</p>
+<p>\begin{array}{l}{=-\frac{1}{m} \sum_{i=1}^{m}\left[-y^{(i)} \frac{-x_{j}^{(i)} e^{-\theta^{T} x^{(i)}}}{1+e^{-\theta^{T} x^{(i)}}}-\left(1-y^{(i)}\right) \frac{x_{j}^{(i)} e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}}\right]} \ {=-\frac{1}{m} \sum_{i=1}^{m} y^{(i)} \frac{x_{j}^{(i)}}{1+e^{\theta^{T} x^{(i)}}}-\left(1-y^{(i)}\right) \frac{x_{j}^{(i)} e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}} ]} \ {=-\frac{1}{m} \sum_{i=1}^{m} \frac{y^{(i)} x_{j}^{(i)}-x_{j}^{(i)} e^{\theta^{T} x^{(i)}}+y^{(i)} x_{j}^{(i)} e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}}} \ {=-\frac{1}{m} \sum_{i=1}^{m} \frac{y^{(i)}\left(1+e^{\theta^{T} x^{(i)}}\right)-e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}} x_{j}^{(i)}} \ {=-\frac{1}{m} \sum_{i=1}^{m}\left(y^{(i)}-\frac{e^{\theta^{T} x^{(i)}}}{1+e^{\theta^{T} x^{(i)}}}\right) x_{j}^{(i)}} \ {=-\frac{1}{m} \sum_{i=1}^{m}\left(y^{(i)}-\frac{1}{1+e^{-\theta^{T} x^{(i)}} )} x_{j}^{(i)}\right.} \ {=-\frac{1}{m} \sum_{i=1}^{m}\left[y^{(i)}-h_{\theta}\left(x^{(i)}\right)\right] x_{j}^{(i)}} \ {=\frac{1}{m} \sum_{i=1}^{m}\left[h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right] x_{j}^{(i)}}</p>
+<p>\end{array}</p>
+<p>$$</p>
+<p>即</p>
+<p>$$</p>
+<p>\frac{\partial J(\theta)}{\partial \theta_{j}}=\frac{1}{m} \sum_{i=1}^{m}\left[h_{\theta}\left(x^{(i)}\right)-y^{(i)}\right] x_{j}^{(i)}</p>
+<p>$$</p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">Zhuanghua</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2019/06/14/Logistic-Regression/">http://yoursite.com/2019/06/14/Logistic-Regression/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/机器学习/">机器学习</a>
+            <a href="/tags/分类/">分类</a>
+            <a href="/tags/逻辑回归/">逻辑回归</a>
+            <a href="/tags/Sigmoid-Function/">Sigmoid Function</a>
+            <a href="/tags/梯度下降法/">梯度下降法</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/05/31/远程工具的使用/">
+        <span class="next-text nav-default">远程工具的使用</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:lupanlpb@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/lupanlpb" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/zhuang-hua-63/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhuanghua</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

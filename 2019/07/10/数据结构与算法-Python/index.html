@@ -123,7 +123,9 @@
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#栈"><span class="toc-text">栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#栈操作"><span class="toc-text">栈操作</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#队列"><span class="toc-text">队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#队列操作"><span class="toc-text">队列操作</span></a></li></ol></li>
     </div>
-  </div><div class="post-content"><h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>栈(stack)是一个项的有序集合，添加项和移除项都发生在同一端，这个端称为“顶”，另一端称为“底”。后添加的项会被首先移除，这种排序原则称为后进先出(LIFO)。</p>
+  </div><div class="post-content"><blockquote>
+<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1></blockquote>
+<p>栈(stack)是一个项的有序集合，添加项和移除项都发生在同一端，这个端称为“顶”，另一端称为“底”。后添加的项会被首先移除，这种排序原则称为后进先出(LIFO)。</p>
 <h3 id="栈操作"><a href="#栈操作" class="headerlink" title="栈操作"></a>栈操作</h3><a id="more"></a>
 <ol>
 <li>stack()：创建一个新的空栈</li>
@@ -134,7 +136,9 @@
 <li>stack.pop()：元素出栈(删除栈顶元素)</li>
 </ol>
 <p><em>Python实现栈</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python list实现栈</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.items = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.items == []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, item)</span>:</span></span><br><span class="line">        self.items.append(item)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.items[<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.items)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.items.pop()</span><br></pre></td></tr></table></figure></p>
-<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>队列(queue)是一系列有顺序的元素的集合，新元素的加入在队列的“队尾”(rear)，元素的移除发生在队列的“队首”(front)。这种排序原则叫做先进先出(FIFO)。</p>
+<blockquote>
+<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1></blockquote>
+<p>队列(queue)是一系列有顺序的元素的集合，新元素的加入在队列的“队尾”(rear)，元素的移除发生在队列的“队首”(front)。这种排序原则叫做先进先出(FIFO)。</p>
 <h3 id="队列操作"><a href="#队列操作" class="headerlink" title="队列操作"></a>队列操作</h3><ol>
 <li>queue.queue()：创建一个空队列</li>
 <li>queue.enqueue(item)：添加元素到队尾</li>

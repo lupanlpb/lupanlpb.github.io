@@ -126,7 +126,7 @@
   </div><div class="post-content"><div align="center"><img src="/2019/07/10/conda常用命令总结/conda_logo.svg"></div>
 
 <blockquote>
-<p><img src="https://docs.conda.io/en/latest/" alt="Conda">是一个开源跨平台的包管理以及环境管理系统。它可以快速地安装、运行和更新软件包及其依赖，并很简单的创建、克隆、切换、清除虚拟环境</p>
+<p><a href="https://docs.conda.io/en/latest/" target="_blank" rel="noopener">Conda</a>是一个开源跨平台的包管理以及环境管理系统。它可以快速地安装、运行和更新软件包及其依赖，并很简单的创建、克隆、切换、清除虚拟环境</p>
 </blockquote>
 <a id="more"></a>
 <h1 id="环境管理"><a href="#环境管理" class="headerlink" title="环境管理"></a>环境管理</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conda info -e # 查看当前已经安装的环境,当前激活的环境会显示一个'*',不同环境都在目录$HOME/.anaconda/envs下</span><br><span class="line">conda create --name python37 python=3.7 # 创建python37环境，python版本为3.7，但是此时仅安装python3.7的必须项(如python, pip等)， 如果希望该环境像默认环境一样，需要执行conda install anaconda</span><br><span class="line">conda activate python37 # 激活环境(conda4.4以前的版本为source activate python37)</span><br><span class="line">conda deactivate python37 # 返回base环境</span><br><span class="line">conda remove --name python37 --all # 删除已有环境</span><br><span class="line">conda create -n flowers --clone snowflakes # 通过克隆snowfllakes来创建一个称为flowers的副本</span><br><span class="line">conda info -envis # 确认当前环境</span><br></pre></td></tr></table></figure>

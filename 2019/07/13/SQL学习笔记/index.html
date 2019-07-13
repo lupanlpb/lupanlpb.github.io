@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="SQL学习笔记"><meta name="keywords" content="Geophysics"><link rel="alternate" href="/default" title="Zhuanghua"><link rel="shortcut icon" type="image/x-icon" href="/avatar2.jpg?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/2019/07/13/SQL学习笔记/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>SQL学习笔记 - Zhuanghua</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Zhuanghua</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Zhuanghua</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">SQL学习笔记
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-07-13
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是SQL"><span class="toc-text">什么是SQL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关系数据库"><span class="toc-text">关系数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表的结构"><span class="toc-text">表的结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#各表之间的关系"><span class="toc-text">各表之间的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库的数据类型"><span class="toc-text">数据库的数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL分类"><span class="toc-text">SQL分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-DDL-数据定义语言"><span class="toc-text">1. DDL(数据定义语言)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-DML-数据操作语言"><span class="toc-text">2. DML(数据操作语言)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-DCL-数据控制语言"><span class="toc-text">3. DCL(数据控制语言)</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL语句书写规则"><span class="toc-text">SQL语句书写规则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用命令及例句"><span class="toc-text">常用命令及例句</span></a></li>
+    </div>
+  </div><div class="post-content"><h1 id="什么是SQL"><a href="#什么是SQL" class="headerlink" title="什么是SQL"></a>什么是SQL</h1><p>SQL是用于访问和处理数据库的标准的计算机语言</p>
+<ul>
+<li>结构化查询语言，全称是structured Query Language</li>
+<li>可以访问和处理数据库</li>
+<li>是ANSI标准的计算机语言</li>
+<li>除了SQL标准之外， 大部分SQL数据库程序都拥有它们自己的专有扩展</li>
+</ul>
+<a id="more"></a>
+<h1 id="关系数据库"><a href="#关系数据库" class="headerlink" title="关系数据库"></a>关系数据库</h1><ul>
+<li>关系数据库 = 多张表 + 各表之间的关系<h1 id="表的结构"><a href="#表的结构" class="headerlink" title="表的结构"></a>表的结构</h1></li>
+<li>表名</li>
+<li>列和列名</li>
+<li>行</li>
+<li>主键：标注数据唯一性<h1 id="各表之间的关系"><a href="#各表之间的关系" class="headerlink" title="各表之间的关系"></a>各表之间的关系</h1></li>
+<li>联结<h1 id="数据库的数据类型"><a href="#数据库的数据类型" class="headerlink" title="数据库的数据类型"></a>数据库的数据类型</h1></li>
+<li>字符型</li>
+<li>数字</li>
+<li>日期<h1 id="SQL分类"><a href="#SQL分类" class="headerlink" title="SQL分类"></a>SQL分类</h1><h3 id="1-DDL-数据定义语言"><a href="#1-DDL-数据定义语言" class="headerlink" title="1. DDL(数据定义语言)"></a>1. DDL(数据定义语言)</h3></li>
+<li>create: 创建数据库和表</li>
+<li>drop: 删除数据库和表</li>
+<li>alter: 修改数据库和表的结构<br>如：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> students(</span><br><span class="line">学号 <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line">姓名 <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">出生日期 <span class="built_in">date</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">性别 <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">primary <span class="keyword">key</span>(学号)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-DML-数据操作语言"><a href="#2-DML-数据操作语言" class="headerlink" title="2. DML(数据操作语言)"></a>2. DML(数据操作语言)</h3><ul>
+<li>insert into: 向表中插入数据</li>
+<li>delete: 删除表中的数据</li>
+<li>select: 查询表中的数据</li>
+<li>update: 修改表中的数据<h3 id="3-DCL-数据控制语言"><a href="#3-DCL-数据控制语言" class="headerlink" title="3. DCL(数据控制语言)"></a>3. DCL(数据控制语言)</h3></li>
+<li>commit: 确认对数据库中的数据进行的变更</li>
+<li>rollback: 取消对数据库中的数据进行的变更</li>
+<li>crant: 赋予用户操作的权限<h1 id="SQL语句书写规则"><a href="#SQL语句书写规则" class="headerlink" title="SQL语句书写规则"></a>SQL语句书写规则</h1></li>
+<li>SQL语句以英文分号”;”结尾</li>
+<li>SQL语句不区分关键字的大小写</li>
+<li>输入字符的时候只能使用英文字符<br>如：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> student (学号,姓名,出生日期,性别) <span class="keyword">values</span> (<span class="string">'0001'</span>,<span class="string">'小明'</span>, <span class="string">'2000-06-06'</span>, <span class="string">'男'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="常用命令及例句"><a href="#常用命令及例句" class="headerlink" title="常用命令及例句"></a>常用命令及例句</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 常用命令</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">databases</span> <span class="comment">-- 创建新数据库</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">databases</span> <span class="comment">-- 修改数据库</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="comment">-- 创建新表</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> <span class="comment">-- 更改数据库表</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="comment">-- 删除数据表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> <span class="comment">-- 创建索引</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">index</span> <span class="comment">-- 删除索引</span></span><br><span class="line"><span class="keyword">select</span> <span class="comment">-- 提取数据</span></span><br><span class="line"><span class="keyword">update</span> <span class="comment">-- 更新数据</span></span><br><span class="line"><span class="keyword">delete</span> <span class="comment">-- 删除数据</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="comment">-- 插入数据</span></span><br><span class="line"><span class="comment">-- 例句</span></span><br><span class="line"><span class="keyword">use</span> school; <span class="comment">-- 选择数据库</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">name</span> utf8; <span class="comment">-- 设置使用的字符集</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> school.student; <span class="comment">-- 读取数据表信息</span></span><br><span class="line"><span class="keyword">select</span> 学号,姓名 <span class="keyword">from</span> student;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> column_name, column_name <span class="keyword">from</span> table_name; <span class="comment">-- 仅列出不相同的值</span></span><br><span class="line"><span class="keyword">select</span> column_name, column_name <span class="keyword">from</span> table_name <span class="keyword">where</span> 性别=<span class="string">'男'</span>; <span class="comment">-- 用于提取那些满足指定条件的记录，如提取所有男生信息</span></span><br><span class="line"><span class="keyword">Select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal &gt; <span class="number">2000</span> <span class="keyword">and</span> sal &lt; <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">Select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal &gt; <span class="number">2000</span> <span class="keyword">or</span> comm &gt; <span class="number">500</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> <span class="keyword">not</span> sal &gt; <span class="number">1500</span>;</span><br><span class="line"><span class="keyword">Select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> comm <span class="keyword">is</span> <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">Select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal <span class="keyword">between</span> <span class="number">1500</span> <span class="keyword">and</span> <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">Select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal <span class="keyword">in</span> (<span class="number">5000</span>,<span class="number">3000</span>,<span class="number">1500</span>);</span><br><span class="line"><span class="keyword">Select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename <span class="keyword">like</span> <span class="string">'M%'</span>;</span><br><span class="line"><span class="keyword">select</span> column_name, column_name</span><br><span class="line"><span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> column_name, column_name <span class="keyword">ASC</span>|<span class="keyword">DESC</span>; <span class="comment">-- 对提取结果排序(DESC降序排列)</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> table_name</span><br><span class="line"><span class="keyword">values</span> (value1, value2, value3, ...); <span class="comment">-- 向表中插入数据</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> table_name (column1, column2, ...)</span><br><span class="line"><span class="keyword">values</span> (value1, value2, ...); <span class="comment">-- 指定列插入数据</span></span><br><span class="line"><span class="keyword">update</span> table_name</span><br><span class="line"><span class="keyword">set</span> column1=value1, column2=value2</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'xxx'</span>; <span class="comment">-- 当名字为'xxx'时，更新该两列数值，执行update时一定要仔细检查where条件</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">where</span> some_column=some_value; <span class="comment">-- 根据where条件删除数据，执行delete时一定要仔细检查where条件</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> table_name; <span class="comment">-- 删除表中所有行，但表结构、属性、索引不变，表还在</span></span><br><span class="line"><span class="keyword">delete</span> * <span class="keyword">from</span> tabel_name; <span class="comment">-- 删除表中所有行，但表结构、属性、索引不变，表还在</span></span><br></pre></td></tr></table></figure>
+<p><em>补充</em>：<br><img src="/2019/07/13/SQL学习笔记/where.jpeg"><br><img src="/2019/07/13/SQL学习笔记/like.jpeg"></p>
+<p><em>持续更新中…</em></p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/SQL/">SQL</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/07/10/数据结构与算法-Python/">
+        <span class="next-text nav-default">数据结构与算法(Python)</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:lupanlpb@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/lupanlpb" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/zhuang-hua-63/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhuanghua</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

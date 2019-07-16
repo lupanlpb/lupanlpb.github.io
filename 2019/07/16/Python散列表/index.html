@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Python散列表"><meta name="keywords" content="Geophysics"><link rel="alternate" href="/default" title="Zhuanghua"><link rel="shortcut icon" type="image/x-icon" href="/avatar2.jpg?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/2019/07/16/Python散列表/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Python散列表 - Zhuanghua</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Zhuanghua</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Zhuanghua</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Python散列表
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-07-16
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#散列函数"><span class="toc-text">散列函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冲突"><span class="toc-text">冲突</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射的相关操作："><span class="toc-text">映射的相关操作：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><blockquote>
+<p>散列表</p>
+</blockquote>
+<p>散列表是一种数据的集合，其中的每个数据都通过某种特定的方式进行存储以方面日后的查找。基于它的搜索算法的时间复杂度为O(1)。散列表的每一个位置叫做<em>槽</em>，能够存放一个数据项，并以从0开始递增的整数命名。例如， 第一个槽记为0，下一个记为1，再下一个记为2，并以此类推。在初始条件下，散列表中是没有任何数据的，即每个槽都是空的。某个数据项与在散列表中存储它的槽之间的映射叫做<em>散列函数</em>。一般地，我们把槽被占据的比例叫做<em>负载因子</em>，两个甚至多个数据需要存储在同一个槽中，这种情况被称为<em>冲突</em>。</p>
+<a id="more"></a>
+<h3 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h3><p>对于一组给定的数据项，如果一个散列函数可以将每一个数据项都映射到不同的槽中，那么这样的散列函数叫做完美散列函数。一种实现完美散列函数的方法就是扩大散列表的尺寸，直到所有可能的数据项变化范围都被散列表所包含。这一方法保证了每一个数据项都有一个不同的槽。尽管这个方法对于少量数据是可行的，但是当它面对大量可能的数据项时显得捉襟见肘。<br>我们的目标是创建一个能够将冲突的数量降到最小，计算方便，并且最终将数据项分配到散 列表中的散列函数。有几种普通的方法去扩展求余方法：</p>
+<ul>
+<li>折叠法：首先将数据分成相同长度的片段（最后一个片段长度可能不等）。接着将这些片段相加，再求余得到其散列值。</li>
+<li>平方取中法：我们首先将数据取平方，然后取平方数的某一部分，然后再进行求余运算。<br>我们也可以为非数字的数据项，例如字符串创建散列表，’cat’可以看做一个连续的ASCII数值。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用ASCII数值散列一个字符串</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hash</span><span class="params">(astring, tablesize)</span>:</span></span><br><span class="line">    sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(astring)):</span><br><span class="line">        sum = sum + ord(astring[i])</span><br><span class="line">    <span class="keyword">return</span> sum%tablesize</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当我们用散列函数纪录散列值的时候，颠倒的字母构成的单词会得到相同的散列值。为了纠正这一情况，我们可以将字母的位置作为权重因子。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用ASCII数值*权重散列一个字符串</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hash</span><span class="params">(astring, tablesize)</span>:</span></span><br><span class="line">    sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(astring)):</span><br><span class="line">        sum = sum + ord(astring[i])*(i+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> sum%tablesize</span><br></pre></td></tr></table></figure></p>
+<h3 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h3><p>当两个数据散列到相同的槽，我们必须用一种系统化的方法将第二个数据放到散列表里。这个过程叫做<em>冲突解决</em>。</p>
+<ul>
+<li>一种解决冲突的方法就是搜索散列表并寻找另一个空的槽来存放这个有冲突的数据。一种简单的方法就是从发生冲突的位置开始顺序向下开始寻找，直到我们遇到第一个空的槽。注意到我们可能需要回到第一个槽（循环）来实现覆盖整个散列表。这种冲突解决方法叫做开放地址，它试图在散列表中去寻找下一个空的槽。通过系统地向后搜索每一个槽，我们将这种实现开放地址的技术叫做<em>线性探测</em>。<div align="center"><img src="/2019/07/16/Python散列表/冲突解决1.png" width="500"></div></li>
+<li>线性探测法的一个缺点是产生集中的趋势：数据会在表中聚集。这意味着如果对于同一散列值产生了许多冲突时，周边的一系列槽都将会被线性探测填充。这将会对正在被填入的新数据产生影响。一种解决集中问题的方法是扩展线性探测技术，我们不再按顺序一个一个地寻找新槽，而是跳过一些槽，这样能更加平均地分配出现冲突的数据，进而潜在地减少集中问题出现的次数。下图展示了同样的数据项如何通过“+3”线性探测的方法解决冲突的。“+3”表示一旦一个冲突出现，我们将每次跳过两个槽来寻找下一个新的空槽。<div align="center"><img src="/2019/07/16/Python散列表/冲突解决2.png" width="500"></div></li>
+<li>另一种线性探测方法叫做二次探测法。我们不是每次在冲突中选择跳过固定个数的槽，而是使用一个再散列函数使每次跳过槽的数量会依次增加1,3,5,7,9，以此类推。这意味着如果原槽为第h个，那么再散列时访问的槽为第h+1，h+4，h+9，h+16个，以此类推。换言之，二次探测法使用一个连续的完全平方数数列作为它的跳跃值。图11显示了我们的例子在运用二次探测法时的 填充结果。<div align="center"><img src="/2019/07/16/Python散列表/冲突解决3.png" width="500"></div></li>
+<li>另一个解决冲突的替代方法是允许每一个槽都能填充一串而不是一个数据（称作链）。链能允许多个数据填在散列表中的同一个位置上。当冲突发生时，数据还是填在本应该位于的槽中。 随着一个槽中填入的数据的增多，搜索的难度也就随之增加。下图显示了数据在用数据链方法填入散列表的结果。<div align="center"><img src="/2019/07/16/Python散列表/冲突解决4.png" width="500"></div>
+
+
+</li>
+</ul>
+<blockquote>
+<p>实现映射的抽象数据类型</p>
+</blockquote>
+<p>字典是Python中最有用的数据类型之一。字典是一个可以储存键-值对的关联数据类型。键是用来查找和它相关联的值的。通常把这个想法称作映射。映射的抽象数据类型定义如下：它以一个键与一个值之间关联的无序集合作为结构。映射中的键都是独特的，以保证和值之间的一一对应关系。</p>
+<h3 id="映射的相关操作："><a href="#映射的相关操作：" class="headerlink" title="映射的相关操作："></a>映射的相关操作：</h3><ol>
+<li>Map():产生一个新的空映射</li>
+<li>put():往映射中添加键-值对。如果密钥已经存在，那么将旧的数据值置换为新的。</li>
+<li>get(key):给定一个 key 值，返回关联的数据，若不存在，返回None。</li>
+<li>del:从映射中删除一个密钥-数据值对，声明形式为del map[key]。</li>
+<li>len():返回映射中的存储密钥-数据值对的个数。</li>
+<li>in:表述为key in map，如果给定的键在map中返回True，否则返回False。</li>
+</ol>
+<p><em>python实现映射</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建哈希表类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hashtable</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.size = <span class="number">11</span></span><br><span class="line">        <span class="comment"># 定义两个列表分别存储键和值</span></span><br><span class="line">        self.slots = [<span class="literal">None</span>]*self.size</span><br><span class="line">        self.data = [<span class="literal">None</span>]*self.size</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义put()方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, key, data)</span>:</span></span><br><span class="line">        hashvalue = self.hashFunc(key, len(self.slots)) <span class="comment"># hashvalue为计算出的一个整数，此处相当于列表的下标</span></span><br><span class="line">        <span class="keyword">if</span>  self.slots[hashvalue] == <span class="literal">None</span>: <span class="comment"># 创建新的键值对</span></span><br><span class="line">            self.slots[hashvalue] = key</span><br><span class="line">            self.data[hashvalue] = data</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> self.slots[hashvalue] == key: <span class="comment"># 该键的位置没有被rehash过，重新赋予键新值</span></span><br><span class="line">                print(<span class="string">'***'</span>, hashvalue, self.slots[hashvalue], key)</span><br><span class="line">                self.data[hashvalue] = data</span><br><span class="line">            <span class="keyword">else</span>: <span class="comment"># 该键的位置被rehash过，重新赋予键新值</span></span><br><span class="line">                nextslot = self.rehash(hashvalue, len(self.slots))</span><br><span class="line">                <span class="keyword">while</span> self.slots[nextslot] != <span class="literal">None</span> <span class="keyword">and</span> self.slots[nextslot] != key:</span><br><span class="line">                    nextslot = self.rehash(nextslot, len(self.slots))</span><br><span class="line">                <span class="keyword">if</span> self.slots[nextslot] == <span class="literal">None</span>:</span><br><span class="line">                    self.slots[nextslot] = key</span><br><span class="line">                    self.data[nextslot] = data</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    self.data[nextslot] = data</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义hashFunc()方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hashFunc</span><span class="params">(self, key, size)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> key%size</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义rehash()方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rehash</span><span class="params">(self, oldvalue, size)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (oldvalue + <span class="number">1</span>)%size</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义get()方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        initslot = self.hashFunc(key, len(self.slots))</span><br><span class="line">        data = <span class="literal">None</span></span><br><span class="line">        stop = <span class="literal">False</span></span><br><span class="line">        found = <span class="literal">False</span></span><br><span class="line">        pos = initslot</span><br><span class="line">        <span class="keyword">while</span> self.slots[pos] != <span class="literal">None</span> <span class="keyword">and</span> <span class="keyword">not</span> found <span class="keyword">and</span> <span class="keyword">not</span> stop:</span><br><span class="line">            <span class="keyword">if</span> self.slots[pos] == key:</span><br><span class="line">                found = <span class="literal">True</span></span><br><span class="line">                data = self.data[pos]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                pos = self.rehash(pos, len(self.slots))</span><br><span class="line">                <span class="keyword">if</span> pos == initslot: <span class="comment"># 循环到开始处，表示没有搜索到</span></span><br><span class="line">                    stop = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, key)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.get(key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, key, data)</span>:</span></span><br><span class="line">        self.put(key, data)</span><br></pre></td></tr></table></figure></p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/Python/">Python</a>
+            <a href="/tags/Hashtable/">Hashtable</a>
+            <a href="/tags/散列表/">散列表</a>
+            <a href="/tags/散列函数/">散列函数</a>
+            <a href="/tags/冲突/">冲突</a>
+            <a href="/tags/映射/">映射</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/07/16/Python搜索/">
+        <span class="next-text nav-default">Python搜索</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:lupanlpb@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/lupanlpb" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/zhuang-hua-63/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhuanghua</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

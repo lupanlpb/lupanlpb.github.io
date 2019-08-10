@@ -121,15 +121,26 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git的三个工作区域"><span class="toc-text">Git的三个工作区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git提交文件常用命令"><span class="toc-text">Git提交文件常用命令</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-的三个工作区域"><span class="toc-text">Git 的三个工作区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-提交文件常用命令"><span class="toc-text">Git 提交文件常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-关联远程仓库"><span class="toc-text">Git 关联远程仓库</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="Git的三个工作区域"><a href="#Git的三个工作区域" class="headerlink" title="Git的三个工作区域"></a>Git的三个工作区域</h2><ol>
+  </div><div class="post-content"><a id="more"></a>
+<div align="center"><img src="/2019/05/31/git学习笔记/git图解.png"></div>
+
+<h2 id="Git-的三个工作区域"><a href="#Git-的三个工作区域" class="headerlink" title="Git 的三个工作区域"></a>Git 的三个工作区域</h2><ol>
 <li>工作区</li>
 <li>暂存区</li>
-<li>Git仓库<a id="more"></a>
-</li>
+<li>Git仓库</li>
 </ol>
-<h2 id="Git提交文件常用命令"><a href="#Git提交文件常用命令" class="headerlink" title="Git提交文件常用命令"></a>Git提交文件常用命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git config --list # 查看配置列表</span><br><span class="line">git config --global user.email 'lupanlpb@163.com' # 配置邮箱</span><br><span class="line">git config --global user.name 'lupanlpb' # 配置用户名</span><br><span class="line">git clone https://github.com/lupanlpb/GitLearn.git # 克隆远程仓库到本地</span><br><span class="line">git status # 查看状态</span><br><span class="line">git add test.dat # 将文件从工作区提交到暂存区</span><br><span class="line">git commit -m "提交的描述" # 将文件从暂存区提交到Git仓库</span><br><span class="line">git push # 提交到远程仓库</span><br></pre></td></tr></table></figure>
+<h2 id="Git-提交文件常用命令"><a href="#Git-提交文件常用命令" class="headerlink" title="Git 提交文件常用命令"></a>Git 提交文件常用命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git config --list # 查看配置列表</span><br><span class="line">git config --global user.email 'lupanlpb@163.com' # 配置邮箱</span><br><span class="line">git config --global user.name 'lupanlpb' # 配置用户名</span><br><span class="line">git clone https://github.com/lupanlpb/GitLearn.git # 克隆远程仓库到本地</span><br><span class="line">git status # 查看状态</span><br><span class="line">git init # 把这个目录变成Git可以管理的仓库</span><br><span class="line">git add README.md # 文件添加到仓库</span><br><span class="line">git add . # 一个点就把当前目录下所有未追踪的文件全部add了</span><br><span class="line">git commit -m "first commit" # 把文件提交到仓库</span><br><span class="line">git remote add origin git@github.com:username/repositoryname.git # 关联远程仓库</span><br><span class="line">git push -u origin master # 把本地库的所有内容推送到远程库上</span><br><span class="line">git pull origin master # 同步远程的master</span><br></pre></td></tr></table></figure>
+<h2 id="Git-关联远程仓库"><a href="#Git-关联远程仓库" class="headerlink" title="Git 关联远程仓库"></a>Git 关联远程仓库</h2><ol>
+<li>配置 SSH Key</li>
+<li>创建远程仓库<ul>
+<li>登录 GitHub</li>
+<li>创建 repository</li>
+</ul>
+</li>
+<li>关联 GitHub 远程仓库</li>
+</ol>
 <p><em>持续更新中…</em></p>
 
       </div>

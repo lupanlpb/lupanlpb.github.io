@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Python中进制转换与位操作"><meta name="keywords" content="Geophysics"><link rel="alternate" href="/default" title="Zhuanghua"><link rel="shortcut icon" type="image/x-icon" href="/favicon_rain.ico?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/2019/08/14/Python中进制转换与位操作/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Python中进制转换与位操作 - Zhuanghua</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Zhuanghua</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Zhuanghua</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Python中进制转换与位操作
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-08-14
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python中的进制表示"><span class="toc-text">Python中的进制表示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python中的进制转换"><span class="toc-text">Python中的进制转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python中的位操作"><span class="toc-text">Python中的位操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#左移和右移操作"><span class="toc-text">左移和右移操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#且操作"><span class="toc-text">且操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#或操作"><span class="toc-text">或操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反转操作"><span class="toc-text">反转操作</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="Python中的进制表示"><a href="#Python中的进制表示" class="headerlink" title="Python中的进制表示"></a>Python中的进制表示</h1><p>计算机中的数都是使用二进制表示的，Python中数字加前缀$0b$，表示是二进制，类似的八进制和十六进制的前缀分别为 $0o$ 和 $0x$。</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0b1</span> <span class="comment"># 二进制表示的1</span></span><br><span class="line"><span class="number">0b10</span> <span class="comment"># 二进制表示的2</span></span><br><span class="line"><span class="number">0b1111</span> <span class="comment"># 二进制表示的15</span></span><br><span class="line"><span class="number">0o10</span> <span class="comment"># 八进制表示的8</span></span><br><span class="line"><span class="number">0o17</span> <span class="comment"># 八进制表示的15</span></span><br><span class="line"><span class="number">0x10</span> <span class="comment"># 十六进制表示的16</span></span><br><span class="line"><span class="number">0xff</span> <span class="comment"># 十六进制表示的255</span></span><br></pre></td></tr></table></figure>
+<h1 id="Python中的进制转换"><a href="#Python中的进制转换" class="headerlink" title="Python中的进制转换"></a>Python中的进制转换</h1><ol>
+<li><p>Python中的进制转换函数</p>
+<ul>
+<li>int():其他进制转十进制</li>
+<li>bin():十进制转二进制</li>
+<li>oct():十进制转八进制</li>
+<li>hex():十进制转十六进制</li>
+</ul>
+</li>
+<li><p>其他进制转十进制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int(<span class="string">'011'</span>, <span class="number">2</span>) <span class="comment"># 二进制转十进制(3)</span></span><br><span class="line">int(<span class="string">'050'</span>, <span class="number">8</span>) <span class="comment"># 八进制转十进制(40)</span></span><br><span class="line">int(<span class="string">'0x4'</span>, <span class="number">16</span>) <span class="comment"># 十六进制转十进制(4)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><em>上述一定不要忘记加引号，因为二进制、八进制、十六进制都是一个字符串</em></p>
+<ol start="3">
+<li>十进制转其他进制<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bin(int(<span class="string">'3'</span>,<span class="number">10</span>)) <span class="comment"># 十进制转二进制('0b11')</span></span><br><span class="line">bin(<span class="number">3</span>) <span class="comment"># 十进制转二进制('0b11')</span></span><br><span class="line">oct(int(<span class="string">'3'</span>,<span class="number">10</span>)) <span class="comment"># 十进制转二进制('0o3')</span></span><br><span class="line">oct(<span class="number">3</span>) <span class="comment"># 十进制转八进制('0o3')</span></span><br><span class="line">hex(int(<span class="string">'3'</span>,<span class="number">10</span>)) <span class="comment"># 十进制转二进制('0x3')</span></span><br><span class="line">hex(<span class="number">3</span>) <span class="comment"># 十进制转十六进制('0x3')</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Python中的位操作"><a href="#Python中的位操作" class="headerlink" title="Python中的位操作"></a>Python中的位操作</h1><p>Python中共有一下几种位操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x &gt;&gt; y <span class="comment"># 返回 x 向右移 y 位得到的结果</span></span><br><span class="line">x &lt;&lt; y <span class="comment">#  返回 x 向左移 y 位得到的结果</span></span><br><span class="line">x &amp; y <span class="comment"># 且操作，返回结果的每一位是 x 和 y 中对应位做 and 运算的结果，只有 1 and 1 = 1，其他情况位0</span></span><br><span class="line">x | y <span class="comment"># 或操作，返回结果的每一位是 x 和 y 中对应位做 or 运算的结果，只有 0 or 0 = 0，其他情况位1</span></span><br><span class="line">~x <span class="comment"># 反转操作，对 x 求的每一位求补，只需记住结果是 -x - 1</span></span><br><span class="line">x ^ y <span class="comment"># 或非运算，如果 y 对应位是0，那么结果位取 x 的对应位，如果 y 对应位是1，取 x 对应位的补，当y位数不够时，从高位补零。</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="左移和右移操作"><a href="#左移和右移操作" class="headerlink" title="左移和右移操作"></a>左移和右移操作</h2><p>顾名思义，左移和右移的意思就是把位数整体向左或者向右移动若干位。比如1111向右移一位就变成了0111，原来没有的位自动填0，超出范围的位舍弃掉。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0b1111</span> &gt;&gt; <span class="number">1</span> == <span class="number">0b111</span> == <span class="number">7</span></span><br><span class="line"><span class="number">0b1010</span> &lt;&lt; <span class="number">2</span> == <span class="number">0b101000</span> == <span class="number">40</span></span><br><span class="line"><span class="number">0b111111</span> &gt;&gt; <span class="number">3</span> == <span class="number">0b111</span> == <span class="number">7</span></span><br><span class="line"><span class="number">0b1</span> &lt;&lt; <span class="number">4</span> == <span class="number">0b10000</span> == <span class="number">16</span></span><br></pre></td></tr></table></figure></p>
+<p>向右移1位可以看成除以2，向左移一位可以看成乘以2。移动n位可以看成乘以或者除以2的n次方。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">8</span> &gt;&gt; <span class="number">2</span> == <span class="number">8</span> / <span class="number">2</span> / <span class="number">2</span> == <span class="number">0b1000</span> &gt;&gt; <span class="number">2</span> == <span class="number">0b10</span> == <span class="number">2</span></span><br><span class="line"><span class="number">8</span> &lt;&lt; <span class="number">2</span> == <span class="number">8</span> * <span class="number">2</span> * <span class="number">2</span> == <span class="number">0b1000</span> &lt;&lt; <span class="number">2</span> == <span class="number">0b100000</span> == <span class="number">32</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="且操作"><a href="#且操作" class="headerlink" title="且操作"></a>且操作</h2><p>对于单个位的且操:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> &amp; <span class="number">1</span> == <span class="number">1</span></span><br><span class="line"><span class="number">1</span> &amp; <span class="number">0</span> == <span class="number">0</span> &amp; <span class="number">1</span> == <span class="number">0</span> &amp; <span class="number">0</span> == <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>两个数字的且操作就是对每一位进行且操作取结果:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0b1</span> &amp; <span class="number">0b0</span> == <span class="number">0</span></span><br><span class="line"><span class="number">0b1111</span> &amp; <span class="number">0b1010</span> == <span class="number">0b1010</span> == <span class="number">10</span></span><br><span class="line"><span class="number">0b1010</span> &amp; <span class="number">0b1100</span> == <span class="number">0b1000</span> == <span class="number">8</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="或操作"><a href="#或操作" class="headerlink" title="或操作"></a>或操作</h2><p>对于单个位的或操作:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> | <span class="number">0</span> == <span class="number">0</span> | <span class="number">1</span> == <span class="number">1</span> | <span class="number">1</span> == <span class="number">1</span></span><br><span class="line"><span class="number">0</span> | <span class="number">0</span> == <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>两个数字的或操作就是对每一位进行或操作取结果:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0b1</span> | <span class="number">0b0</span> == <span class="number">0b1</span> ==<span class="number">1</span></span><br><span class="line"><span class="number">0b1000</span> | <span class="number">0b0111</span> == <span class="number">0b1111</span> == <span class="number">15</span></span><br><span class="line"><span class="number">0b1010</span> | <span class="number">0b1100</span> == <span class="number">0b1110</span> == <span class="number">14</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="反转操作"><a href="#反转操作" class="headerlink" title="反转操作"></a>反转操作</h2><p>python的反转操作只接受一个参数n，n必须是整数，效果是对n的内部表示的每一位求补，运算结果位$-n-1$:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~<span class="number">8</span> = <span class="number">-9</span></span><br><span class="line">``` </span><br><span class="line"><span class="comment">## 或非操作</span></span><br><span class="line">对于 x ^ y，如果y的位是<span class="number">0</span>，那么取x的原始值，如果y的位是<span class="number">1</span>，那么取x此位的补:</span><br><span class="line">``` python</span><br><span class="line"><span class="number">0b1111</span> ^ <span class="number">0b0101</span> = <span class="number">0b1010</span></span><br><span class="line"><span class="number">0b1111</span> ^ <span class="number">0b1</span> = <span class="number">0b1110</span> <span class="comment"># 自动填0</span></span><br></pre></td></tr></table></figure></p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/Python/">Python</a>
+            <a href="/tags/进制转换/">进制转换</a>
+            <a href="/tags/位操作/">位操作</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/07/29/Python实现二叉树重建/">
+        <span class="next-text nav-default">Python实现二叉树重建</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:lupanlpb@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/lupanlpb" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/zhuang-hua-63/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhuanghua</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

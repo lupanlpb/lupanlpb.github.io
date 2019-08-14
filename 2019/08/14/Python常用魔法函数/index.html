@@ -129,7 +129,7 @@
 <p><img src="/2019/08/14/Python常用魔法函数/Python常用魔法函数.png" width="400"></p>
 <a id="more"></a>
 <h2 id="init"><a href="#init" class="headerlink" title="__init__()"></a>__init__()</h2><p>所有类的超类 object，有一个默认包含 pass 的 __init__() 实现，这个函数会在对象初始化的时候调用，我们可以选择实现，也可以选择不实现，一般建议是实现的，不实现对象属性就不会被初始化，虽然我们仍然可以对其进行赋值，但是它已经成了隐式的了，编程时显示远比隐式的更好。</p>
-<h2 id="new"><a href="#new" class="headerlink" title="__new__()"></a>__new__()</h2><p>在object类中存在一个静态的 __new__(cls, *args, **kwargs) 方法，该方法需要传递一个参数 cls，cls 表示需要实例化的类，此参数在实例化时由Python解释器自动提供， __new__ 方法必须有返回值，且返回的是被实例化的实例，只有在该实例返回后才会调用 __init__ 来进行初始化，初始化所用的实例就是 __new__ 返回的结果，也就可以认为是 self。</p>
+<h2 id="new"><a href="#new" class="headerlink" title="__new__()"></a>__new__()</h2><p>在object类中存在一个静态的 __new__(cls, *args, **kwargs) 方法，该方法需要传递一个参数 cls，cls 表示需要实例化的类，此参数在实例化时由 Python 解释器自动提供， __new__ 方法必须有返回值，且返回的是被实例化的实例，只有在该实例返回后才会调用 __init__ 来进行初始化，初始化所用的实例就是 __new__ 返回的结果，也就可以认为是 self。</p>
 <h2 id="iter"><a href="#iter" class="headerlink" title="__iter__()"></a>__iter__()</h2><p>只要定义了 __iter__() 方法对象，就是可迭代对象；这意味着，我们可以迭代我们自己定义的对象。</p>
 <h2 id="next"><a href="#next" class="headerlink" title="__next__()"></a>__next__()</h2><p>函数<strong>next</strong>() 是 iterator 区别于 iterable 的关键,它允许我们显式地获取一个元素。当调用 next() 方法时,实际上产生了 2 个操作：一是更新 iterator 状态，令其指向后一项,以便下一次调用，二是返回当前结果。</p>
 <h2 id="call"><a href="#call" class="headerlink" title="__call__()"></a>__call__()</h2><p>对象通过提供 __call__() 方法可以模拟函数的行为，如果一个对象提供了该方法，就可以像函数一样使用它。</p>

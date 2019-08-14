@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+  <head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="Python常用魔法函数"><meta name="keywords" content="Geophysics"><link rel="alternate" href="/default" title="Zhuanghua"><link rel="shortcut icon" type="image/x-icon" href="/favicon_rain.ico?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/2019/08/14/Python常用魔法函数/">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":true};
+</script>
+
+    <title>Python常用魔法函数 - Zhuanghua</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Zhuanghua</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Zhuanghua</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Python常用魔法函数
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-08-14
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#init"><span class="toc-text">init()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new"><span class="toc-text">new()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iter"><span class="toc-text">iter()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#next"><span class="toc-text">next()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call"><span class="toc-text">call()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#len"><span class="toc-text">len()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#str"><span class="toc-text">str()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#repr"><span class="toc-text">repr()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setitem"><span class="toc-text">setitem()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getitem"><span class="toc-text">getitem()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delitem"><span class="toc-text">delitem()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#del"><span class="toc-text">del()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setattr"><span class="toc-text">setattr()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getattr"><span class="toc-text">getattr()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getattribute"><span class="toc-text">getattribute()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delattr"><span class="toc-text">delattr()</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><blockquote>
+<p>这篇博客整理了一下常用的 Python 魔法函数</p>
+</blockquote>
+<p><img src="/2019/08/14/Python常用魔法函数/Python常用魔法函数.png"></p>
+<a id="more"></a>
+<h2 id="init"><a href="#init" class="headerlink" title="init()"></a><strong>init</strong>()</h2><p>所有类的超类 object，有一个默认包含 pass 的 <strong>init</strong>() 实现，这个函数会在对象初始化的时候调用，我们可以选择实现，也可以选择不实现，一般建议是实现的，不实现对象属性就不会被初始化，虽然我们仍然可以对其进行赋值，但是它已经成了隐式的了，编程时显示远比隐式的更好。</p>
+<h2 id="new"><a href="#new" class="headerlink" title="new()"></a><strong>new</strong>()</h2><p>在object类中存在一个静态的 <strong>new</strong>(cls, *args, **kwargs) 方法，该方法需要传递一个参数 cls，cls 表示需要实例化的类，此参数在实例化时由Python解释器自动提供， <strong>new</strong> 方法必须有返回值，且返回的是被实例化的实例，只有在该实例返回后才会调用 <strong>init</strong> 来进行初始化，初始化所用的实例就是 <strong>new</strong> 返回的结果，也就可以认为是 self。</p>
+<h2 id="iter"><a href="#iter" class="headerlink" title="iter()"></a><strong>iter</strong>()</h2><p>只要定义了 <strong>iter</strong>() 方法对象，就是可迭代对象；这意味着，我们可以迭代我们自己定义的对象。</p>
+<h2 id="next"><a href="#next" class="headerlink" title="next()"></a><strong>next</strong>()</h2><p>函数<strong>next</strong>() 是 iterator 区别于 iterable 的关键,它允许我们显式地获取一个元素。当调用 next() 方法时,实际上产生了 2 个操作：一是更新 iterator 状态，令其指向后一项,以便下一次调用，二是返回当前结果。</p>
+<h2 id="call"><a href="#call" class="headerlink" title="call()"></a><strong>call</strong>()</h2><p>对象通过提供 <strong>call</strong>() 方法可以模拟函数的行为，如果一个对象提供了该方法，就可以像函数一样使用它。</p>
+<h2 id="len"><a href="#len" class="headerlink" title="len()"></a><strong>len</strong>()</h2><p>len 调用后会调用对象的 <strong>len</strong> 函数，我们可以为其定制输出。</p>
+<h2 id="str"><a href="#str" class="headerlink" title="str()"></a><strong>str</strong>()</h2><p>直接打印对象的实现方法，<strong>str</strong> 是被 print 函数调用的，一般都是 return 一个什么东西，这个东西应该是以字符串的形式表现的。如果不是要用 str() 函数转换，我们可以直接 print 的对象都是实现了 <strong>str</strong> 这个方法的，比如 dict。</p>
+<h2 id="repr"><a href="#repr" class="headerlink" title="repr()"></a><strong>repr</strong>()</h2><p>函数 str() 用于将值转化为适于人阅读的形式，而 repr() 转化为供解释器读取的形式，某对象如果没有适于人阅读的解释形式的话，我们可以定制 <strong>repr</strong> 的输出。</p>
+<h2 id="setitem"><a href="#setitem" class="headerlink" title="setitem()"></a><strong>setitem</strong>()</h2><p>该函数可以给对象赋值，我们可以以下标的方式对其进行操作</p>
+<h2 id="getitem"><a href="#getitem" class="headerlink" title="getitem()"></a><strong>getitem</strong>()</h2><p>与上函数相反，<strong>getitem</strong> 可以使对象支持以下标的方式获取值。</p>
+<h2 id="delitem"><a href="#delitem" class="headerlink" title="delitem()"></a><strong>delitem</strong>()</h2><p>该函数支持以下标方式删除对象数据，实现了这三个函数，这个类就像字典一样，具备了基本的增删查功能，有时候这样写会很方便。</p>
+<h2 id="del"><a href="#del" class="headerlink" title="del()"></a><strong>del</strong>()</h2><p>这可以说是一个析构器，或者回收器，在对象引用数降到0时执行，有时可能还需要等一会再执行，所以一般不推荐使用，但是在代码中我们偶尔可以用它来实现一些必须要做的，但是并不紧急的事。</p>
+<h2 id="setattr"><a href="#setattr" class="headerlink" title="setattr()"></a><strong>setattr</strong>()</h2><p>该函数可以设置函数的属性。</p>
+<h2 id="getattr"><a href="#getattr" class="headerlink" title="getattr()"></a><strong>getattr</strong>()</h2><p>获取对象属性，只有在属性没有找到的时候调用。</p>
+<h2 id="getattribute"><a href="#getattribute" class="headerlink" title="getattribute()"></a><strong>getattribute</strong>()</h2><p>该函数和上面介绍的 <strong>getattr</strong> 很像，都是获取属性，但是 <strong>getattr</strong> 是在属性不存在时被调用，而 <strong>getattribute</strong> 是无条件被调用，这样会方便我们做一些控制，需要注意，一旦定义 了<strong>getattribute</strong>，则 <strong>getattr</strong> 不再会被调用，除非显式调用。</p>
+<h2 id="delattr"><a href="#delattr" class="headerlink" title="delattr()"></a><strong>delattr</strong>()</h2><p>本函数的作用是删除属性，实现了该函数的类可以用 del 命令来删除属性。</p>
+<p><em>持续更新中…</em></p>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/Python/">Python</a>
+            <a href="/tags/魔法函数/">魔法函数</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2019/08/14/Python中进制转换与位操作/">
+        <span class="next-text nav-default">Python中进制转换与位操作</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:lupanlpb@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/lupanlpb" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/zhuang-hua-63/activities" class="iconfont icon-zhihu" title="zhihu"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2015 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Zhuanghua</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

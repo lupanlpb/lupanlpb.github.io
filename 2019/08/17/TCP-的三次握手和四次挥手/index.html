@@ -184,7 +184,11 @@
 </ol>
 <p><div align="center"><img src="/2019/08/17/TCP-的三次握手和四次挥手/发送第三个数据包.png" width="600"></div></p>
 <pre><code>在第三个数据包中：SYN = 0，ACK = 1，seq的值为第一个数据包的seq的值+1，ack的值为第二个数据包的seq值+1。
-</code></pre><p><strong>总结：</strong><br>在三次握手的时候，有四个字段是非常重要的。SYN 和 ACK均占一位，表示同步和确认。seq 和 ack 均为 32 位，分别为发送的数据的序号，和希望对方发送的数据的序号。在三次握手的过程中，第一次和第二次的过程中 SYN 的值均为 1，并且每个过程都消耗掉一个序号，消耗一个序号的意思是：使得数据的序号加 1，好像是发送了一位数据，但是并没有真正的传递数据。</p>
+</code></pre><p><strong>总结：</strong></p>
+<ol>
+<li>在三次握手的时候，有四个字段是非常重要的。SYN 和 ACK均占一位，表示同步和确认。seq 和 ack 均为 32 位，分别为发送的数据的序号，和希望对方发送的数据的序号。</li>
+<li>在三次握手的过程中，第一次和第二次的过程中 SYN 的值均为 1，并且每个过程都消耗掉一个序号，消耗一个序号的意思是：使得数据的序号加 1，好像是发送了一位数据，但是并没有真正的传递数据。</li>
+</ol>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/jiaxin359/p/7634371.html" target="_blank" rel="noopener">一次经典的tcp三次握手</a><br><a href="https://juejin.im/post/5a0444d45188255ea95b66bc" target="_blank" rel="noopener">TCP的三次握手四次挥手</a></p>
 
       </div>
